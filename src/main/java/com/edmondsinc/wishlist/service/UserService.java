@@ -11,6 +11,7 @@ import jakarta.persistence.PersistenceException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +28,9 @@ public class UserService {
     }
 
     public ResponseBaseDto getUser(UUID userGuid) {
-        User user = userRepo.findByGuid(userGuid);
+        User user = userRepo.findByGuidAndActiveTrue(userGuid);
         return user != null ?
-                new UserResponseDto(List.of(user.toUserDto())) :
+                new UserResponseDto(List.of(user.toUserDto())).ok() :
                 new ResponseBaseDto(204, HttpStatus.NO_CONTENT, "No user found for userGuid: [" + userGuid+"]");
     }
 
@@ -55,5 +56,16 @@ public class UserService {
             throw new PersistenceException("Unable to save new user due to: "+dae.getMessage());
         }
         return new UserResponseDto(List.of(user.toUserDto()));
+    }
+
+
+    @Transactional
+    public ResponseBaseDto deleteUser(UUID userGuid){
+        Integer resInt = userRepo.deleteUserByGuid(userGuid);
+        System.out.println("delete result:: "+resInt);
+        return resInt == 0 ?
+                new ResponseBaseDto(404, HttpStatus.NOT_FOUND, "No user found with this UUID") :
+                new UserResponseDto(204, HttpStatus.NO_CONTENT, "Delete Succesful");
+
     }
 }

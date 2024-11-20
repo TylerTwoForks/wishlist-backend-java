@@ -1,7 +1,6 @@
 package com.edmondsinc.wishlist.model.dto.response;
 
 
-import com.fasterxml.jackson.annotation.JsonValue;
 import org.springframework.http.HttpStatus;
 
 public class ResponseBaseDto {
@@ -10,7 +9,7 @@ public class ResponseBaseDto {
     private String message;
 
     public ResponseBaseDto(){
-        this(200, HttpStatus.OK, "OK");
+        new ResponseBaseDto(200, HttpStatus.OK, "OK");
     }
 
     public ResponseBaseDto(Integer httpCode, HttpStatus httpStatus, String message) {
@@ -19,7 +18,27 @@ public class ResponseBaseDto {
         this.message = message;
     }
 
-    public void testMethodResponseBase(){
-        System.out.println("Response Base Method");
+    public Integer getHttpCode() {
+        return httpCode;
+    }
+
+    public void setHttpCode(Integer httpCode) {
+        this.httpCode = httpCode;
+    }
+
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
+    }
+
+    public void setHttpStatus(HttpStatus httpStatus) {
+        this.httpStatus = httpStatus;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

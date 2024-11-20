@@ -15,6 +15,7 @@ public interface UserRepo extends JpaRepository<User, Long> {
     @NotNull
     Optional<User> findById(@NotNull Long id);
 
-    User findByGuid(UUID userGuid);
+    User findByGuidAndActiveTrue(UUID guid);
 
+    Integer deleteUserByGuid(UUID userGuid);
 }

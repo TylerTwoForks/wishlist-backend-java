@@ -3,7 +3,6 @@ version: "3.8"
 services:
   psql-db:
     image: postgres
-    container_name: psql-db-wishlist
     restart: always
     environment:
       - POSTGRES_USER=postgres

@@ -34,11 +34,11 @@ public class MagicHatController {
     )
     {
         if(magicHat.size() < 4){
-
-            res = new ResponseBaseDto(411, HttpStatus.LENGTH_REQUIRED, "MagicHat must contain at least 4 entries to sort");
-            return res;
+            return new ResponseBaseDto(411, HttpStatus.LENGTH_REQUIRED, "MagicHat must contain at least 4 entries to sort");
         }else{
-            return mhs.pullNames(magicHat, giftingTo);
+            ResponseBaseDto rbDto = mhs.pullNames(magicHat, giftingTo);
+            System.out.println("serviceRes:: "+rbDto);
+            return rbDto;
         }
     }
 }

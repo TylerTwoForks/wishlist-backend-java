@@ -17,17 +17,21 @@ public class MagicHatService {
     public MagicHatService() {}
 
     public ResponseBaseDto pullNames(List<PersonDto> magicHat, int giftingTo){
+        System.out.println("magicHat::" + magicHat);
 
         HashMap<PersonDto, List<PersonDto>> matchedUp = matchUp(magicHat, giftingTo);
 
         if(!matchedUp.isEmpty()){
             List<MagicHatDto> response = new ArrayList<>();
 
-            matchedUp.forEach((m, lm) -> {
-                response.add(new MagicHatDto(m, lm));
+            matchedUp.forEach((pdto, lpdto) -> {
+                response.add(new MagicHatDto(pdto, lpdto));
             });
 
-            return new MagicHatResponseDto(response);
+            for(MagicHatDto mhdto : response){
+                System.out.println("res:: "+mhdto.toString());
+            }
+            return new MagicHatResponseDto(response).ok();
         }else{
             return new ResponseBaseDto(204, HttpStatus.NO_CONTENT, "Magic hat go boom!");
         }

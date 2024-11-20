@@ -54,4 +54,15 @@ public class PersonDto {
     public void setForbiddenOne(PersonDto forbiddenOne) {
         this.forbiddenOne = forbiddenOne;
     }
+
+    @Override
+    public String toString() {
+        return "PersonDto{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", matched=" + matched +
+                ", forbiddenOne=" + forbiddenOne +
+                '}';
+    }
+
 }

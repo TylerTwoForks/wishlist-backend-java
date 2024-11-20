@@ -4,6 +4,9 @@ import com.edmondsinc.wishlist.model.dto.CreateUserDto;
 import com.edmondsinc.wishlist.model.dto.response.ResponseBaseDto;
 import com.edmondsinc.wishlist.model.dto.response.UserResponseDto;
 import com.edmondsinc.wishlist.service.UserService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,6 +40,11 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+    /**
+     *
+     * @param userGuid guid on the user_account table for record you want
+     * @return ResponseBaseDto - could be a UserResponseDto or a ResponseBaseDto depending on result.
+     */
     @GetMapping(path="/{userGuid}")
     public ResponseBaseDto getUserById(
             @PathVariable UUID userGuid
@@ -45,5 +53,10 @@ public class UserController {
         return userService.getUser(userGuid);
     }
 
+
+    @DeleteMapping(path = "/delete/{userGuid}")
+    public ResponseBaseDto deleteUserByGuid(@PathVariable UUID userGuid){
+        return userService.deleteUser(userGuid);
+    }
 
 }

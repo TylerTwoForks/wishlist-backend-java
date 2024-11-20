@@ -1,5 +1,6 @@
 package com.edmondsinc.wishlist.model.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MagicHatDto {
@@ -28,5 +29,17 @@ public class MagicHatDto {
 
     public void setGiftees(List<PersonDto> giftees) {
         this.giftees = giftees;
+    }
+
+    @Override
+    public String toString() {
+        List<String> gifteeList = new ArrayList<>();
+        for(PersonDto p : giftees){
+            gifteeList.add(p.toString());
+        }
+        return "MagicHatDto{" +
+                "gifter=" + gifter +
+                ", giftees=" + gifteeList +
+                '}';
     }
 }
