@@ -61,9 +61,8 @@ public class UserService {
 
     @Transactional
     public ResponseBaseDto deleteUser(UUID userGuid){
-        Integer resInt = userRepo.deleteUserByGuid(userGuid);
-        System.out.println("delete result:: "+resInt);
-        return resInt == 0 ?
+        Integer result = userRepo.deleteUserByGuid(userGuid);
+        return result == 0 ?
                 new ResponseBaseDto(404, HttpStatus.NOT_FOUND, "No user found with this UUID") :
                 new UserResponseDto(204, HttpStatus.NO_CONTENT, "Delete Succesful");
 
