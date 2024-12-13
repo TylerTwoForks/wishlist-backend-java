@@ -27,6 +27,12 @@ public class MagicHatController {
         this.mhs = mhs;
     }
 
+    /**
+     *
+     * @param magicHat test
+     * @param giftingTo test
+     * @return test
+     */
     @PostMapping(path="/pullNames")
     public ResponseBaseDto pullNames(
             @RequestBody List<PersonDto> magicHat,

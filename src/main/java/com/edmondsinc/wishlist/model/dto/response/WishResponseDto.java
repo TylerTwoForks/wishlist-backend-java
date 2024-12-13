@@ -19,7 +19,7 @@ public class WishResponseDto {
 
     public WishResponseDto(Wish wish){
         this.wishId = wish.getId();
-        this.wishBankId = wish.getWishBank().getId();
+        this.wishBankId = wish.getWishList().getId();
         this.externalUrl = wish.getExternalUrl();
         this.notes = wish.getNotes();
         this.qtyRequested = wish.getQtyRequested();

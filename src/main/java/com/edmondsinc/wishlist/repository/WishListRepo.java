@@ -1,13 +1,13 @@
 package com.edmondsinc.wishlist.repository;
 
-import com.edmondsinc.wishlist.model.WishBank;
+import com.edmondsinc.wishlist.model.WishList;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface WishBankRepo extends JpaRepository<WishBank, Long> {
+public interface WishListRepo extends JpaRepository<WishList, Long> {
 
-    List<WishBank> findAllByUserId(Long userId);
+    List<WishList> findAllByUserId(Long userId);
 }

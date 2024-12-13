@@ -13,6 +13,7 @@ public class UserDto {
     String userName; //probably going to be email
     LocalDateTime lastLogin;
     UUID userGuid;
+    Long id;
 
     public UserDto(User user){
         this.firstName = user.getFirstName();
@@ -21,6 +22,7 @@ public class UserDto {
         this.userName = user.getUserName();
         this.lastLogin = user.getLastLogin();
         this.userGuid = user.getGuid();
+        this.id = user.getId();
     }
 
     public UserDto() {}
@@ -71,5 +73,13 @@ public class UserDto {
 
     public void setUserGuid(UUID userGuid) {
         this.userGuid = userGuid;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

@@ -16,13 +16,13 @@ public abstract class AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private Long id;
 
     @CreatedDate
     private LocalDateTime createdAt;
 
-    @Column(name = "guid", nullable = false, unique = true, updatable = false)
+    @Column(nullable = false, unique = true, updatable = false)
     private UUID guid;
 
     protected AbstractEntity(){

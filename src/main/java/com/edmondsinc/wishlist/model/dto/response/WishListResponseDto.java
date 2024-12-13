@@ -1,24 +1,24 @@
 package com.edmondsinc.wishlist.model.dto.response;
 
-import com.edmondsinc.wishlist.model.WishBank;
+import com.edmondsinc.wishlist.model.WishList;
 import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
 
-public class WishBankResponseDto extends ResponseBaseDto {
+public class WishListResponseDto extends ResponseBaseDto {
     Long id;
     String name;
     Long userId;
     List<WishResponseDto> wishList;
 
-    public WishBankResponseDto(WishBank wb){
+    public WishListResponseDto(WishList wb){
         this.id = wb.getId();
         this.name = wb.getBankName();
         this.userId = wb.getUser().getId();
     }
 
-    public WishBankResponseDto(Integer httpCode, HttpStatus httpStatus, String message){
+    public WishListResponseDto(Integer httpCode, HttpStatus httpStatus, String message){
         super(httpCode, httpStatus, message);
     }
 

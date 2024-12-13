@@ -24,11 +24,11 @@ public class WishCreateDto {
         this.active = active;
     }
 
-    public Long getWishBankId() {
+    public Long getWishListId() {
         return wishBankId;
     }
 
-    public void setWishBankId(Long wishBankId) {
+    public void setWishListId(Long wishBankId) {
         this.wishBankId = wishBankId;
     }
 

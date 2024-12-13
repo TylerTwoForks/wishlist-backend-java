@@ -3,7 +3,7 @@ package com.edmondsinc.wishlist.service;
 import com.edmondsinc.wishlist.model.Wish;
 import com.edmondsinc.wishlist.model.dto.WishCreateDto;
 import com.edmondsinc.wishlist.model.dto.response.WishResponseDto;
-import com.edmondsinc.wishlist.repository.WishBankRepo;
+import com.edmondsinc.wishlist.repository.WishListRepo;
 import com.edmondsinc.wishlist.repository.WishRepo;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
@@ -18,9 +18,9 @@ import java.util.Optional;
 public class WishService {
 
     WishRepo wishRepo;
-    WishBankRepo wishBankRepo;
+    WishListRepo wishBankRepo;
 
-    public WishService(WishRepo wishRepo, WishBankRepo wishBankRepo) {
+    public WishService(WishRepo wishRepo, WishListRepo wishBankRepo) {
         this.wishRepo = wishRepo;
         this.wishBankRepo = wishBankRepo;
     }
@@ -39,7 +39,7 @@ public class WishService {
     @GraphQLMutation
     public WishResponseDto addWish(WishCreateDto wishCreateDto){
         Wish wish = new Wish.Builder()
-                .setWishBank(wishBankRepo.getReferenceById(wishCreateDto.getWishBankId()))
+                .setWishList(wishBankRepo.getReferenceById(wishCreateDto.getWishListId()))
                 .setActive(true)
                 .setExternalUrl(wishCreateDto.getExternalUrl())
                 .setNotes(wishCreateDto.getNotes())

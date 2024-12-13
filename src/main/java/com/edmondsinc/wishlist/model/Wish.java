@@ -11,7 +11,7 @@ public class Wish extends AbstractEntity {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "wish_bank_id")
-    WishBank wishBank;
+    WishList wishList;
     String externalUrl;
     String notes;
     int qtyRequested;
@@ -20,8 +20,8 @@ public class Wish extends AbstractEntity {
 
     public Wish(){}
 
-    public Wish(WishBank wishBank, String externalUrl, String notes, int qtyRequested, boolean purchased, boolean active) {
-        this.wishBank = wishBank;
+    public Wish(WishList wishList, String externalUrl, String notes, int qtyRequested, boolean purchased, boolean active) {
+        this.wishList = wishList;
         this.externalUrl = externalUrl;
         this.notes = notes;
         this.qtyRequested = qtyRequested;
@@ -29,12 +29,12 @@ public class Wish extends AbstractEntity {
         this.active = active;
     }
 
-    public WishBank getWishBank() {
-        return wishBank;
+    public WishList getWishList() {
+        return wishList;
     }
 
-    public void setWishBank(WishBank wishBank) {
-        this.wishBank = wishBank;
+    public void setWishList(WishList wishList) {
+        this.wishList = wishList;
     }
 
     public String getExternalUrl() {
@@ -79,15 +79,15 @@ public class Wish extends AbstractEntity {
 
     public static class Builder{
 
-        private WishBank wishBank;
+        private WishList wishList;
         private String externalUrl;
         private String notes;
         private int qtyRequested;
         private boolean purchased;
         private boolean active;
 
-        public Builder setWishBank(WishBank wishBank) {
-            this.wishBank = wishBank;
+        public Builder setWishList(WishList wishList) {
+            this.wishList = wishList;
             return this;
         }
 
@@ -117,7 +117,7 @@ public class Wish extends AbstractEntity {
         }
 
         public Wish build() {
-            return new Wish(wishBank, externalUrl, notes, qtyRequested, purchased, active);
+            return new Wish(wishList, externalUrl, notes, qtyRequested, purchased, active);
         }
     }
 }
