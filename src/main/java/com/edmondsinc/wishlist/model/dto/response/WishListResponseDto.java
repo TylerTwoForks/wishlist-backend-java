@@ -1,25 +1,21 @@
 package com.edmondsinc.wishlist.model.dto.response;
 
 import com.edmondsinc.wishlist.model.WishList;
-import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
 
-public class WishListResponseDto extends ResponseBaseDto {
+public class WishListResponseDto {
+
     Long id;
     String name;
     Long userId;
-    List<WishResponseDto> wishList;
+    List<WishResponseDto> wishResDtoList;
 
-    public WishListResponseDto(WishList wb){
-        this.id = wb.getId();
-        this.name = wb.getBankName();
-        this.userId = wb.getUser().getId();
-    }
-
-    public WishListResponseDto(Integer httpCode, HttpStatus httpStatus, String message){
-        super(httpCode, httpStatus, message);
+    public WishListResponseDto(WishList wl){
+        this.id = wl.getId();
+        this.name = wl.getWishListName();
+        this.userId = wl.getUser().getId();
     }
 
     public Long getId() {
@@ -46,11 +42,21 @@ public class WishListResponseDto extends ResponseBaseDto {
         this.userId = userId;
     }
 
-    public List<WishResponseDto> getWishList() {
-        return wishList;
+    public List<WishResponseDto> getWishResDtoList() {
+        return wishResDtoList;
     }
 
-    public void setWishList(List<WishResponseDto> wishList) {
-        this.wishList = wishList;
+    public void setWishResDtoList(List<WishResponseDto> wishResDtoList) {
+        this.wishResDtoList = wishResDtoList;
+    }
+
+    @Override
+    public String toString() {
+        return "WishListResponseDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", userId=" + userId +
+                ", wishResDtoList=" + wishResDtoList +
+                '}';
     }
 }

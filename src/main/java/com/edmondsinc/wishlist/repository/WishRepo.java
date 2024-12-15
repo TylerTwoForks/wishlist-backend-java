@@ -9,4 +9,10 @@ import java.util.List;
 public interface WishRepo extends JpaRepository<Wish, Long> {
 
     List<Wish> findByWishList(WishList wb);
+
+    List<Wish> findByWishListId(Long wishListId);
+
+    List<Wish> findAllByWishList(WishList wishList);
+
+
 }

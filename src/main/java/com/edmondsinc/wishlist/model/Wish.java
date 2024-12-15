@@ -1,24 +1,28 @@
 package com.edmondsinc.wishlist.model;
 
 import com.edmondsinc.wishlist.config.AbstractEntity;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class Wish extends AbstractEntity {
-    //Wish is an actual object you're wishing for.  Something you want and you can write down what that is.
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "wish_bank_id")
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "wishlist_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     WishList wishList;
+
     String externalUrl;
     String notes;
     int qtyRequested;
     boolean purchased;
     boolean active;
 
-    public Wish(){}
+    public Wish() {
+    }
 
     public Wish(WishList wishList, String externalUrl, String notes, int qtyRequested, boolean purchased, boolean active) {
         this.wishList = wishList;
@@ -77,7 +81,7 @@ public class Wish extends AbstractEntity {
         this.active = active;
     }
 
-    public static class Builder{
+    public static class Builder {
 
         private WishList wishList;
         private String externalUrl;

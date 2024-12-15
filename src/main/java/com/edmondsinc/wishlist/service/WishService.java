@@ -1,16 +1,17 @@
 package com.edmondsinc.wishlist.service;
 
 import com.edmondsinc.wishlist.model.Wish;
+import com.edmondsinc.wishlist.model.WishList;
 import com.edmondsinc.wishlist.model.dto.WishCreateDto;
 import com.edmondsinc.wishlist.model.dto.response.WishResponseDto;
 import com.edmondsinc.wishlist.repository.WishListRepo;
 import com.edmondsinc.wishlist.repository.WishRepo;
-import io.leangen.graphql.annotations.GraphQLMutation;
-import io.leangen.graphql.annotations.GraphQLQuery;
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
 import jakarta.persistence.NoResultException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,14 +19,28 @@ import java.util.Optional;
 public class WishService {
 
     WishRepo wishRepo;
-    WishListRepo wishBankRepo;
+    WishListRepo wishListRepo;
 
-    public WishService(WishRepo wishRepo, WishListRepo wishBankRepo) {
+    public WishService(WishRepo wishRepo, WishListRepo wishListRepo) {
         this.wishRepo = wishRepo;
-        this.wishBankRepo = wishBankRepo;
+        this.wishListRepo = wishListRepo;
     }
 
-    @GraphQLQuery
+    public WishService(){}
+
+    @Autowired
+    public void setWishRepo(WishRepo wishRepo) {
+        this.wishRepo = wishRepo;
+    }
+
+    @Autowired
+    public void setWishListRepo(WishListRepo wishListRepo) {
+        this.wishListRepo = wishListRepo;
+    }
+
+
+
+
     public WishResponseDto getWishById(Long id){
         Optional<Wish> o = wishRepo.findById(id);
         if(o.isPresent()){
@@ -35,15 +50,17 @@ public class WishService {
         }
     }
 
+    public List<WishResponseDto> getWishesByWishList(WishList wl){
+        return WishResponseDto.wishListToResponseList(wishRepo.findAllByWishList(wl));
+    }
 
-    @GraphQLMutation
     public WishResponseDto addWish(WishCreateDto wishCreateDto){
         Wish wish = new Wish.Builder()
-                .setWishList(wishBankRepo.getReferenceById(wishCreateDto.getWishListId()))
-                .setActive(true)
+                .setWishList(wishListRepo.findById(wishCreateDto.getWishListId()).orElse(null))
+                .setActive(wishCreateDto.isActive())
                 .setExternalUrl(wishCreateDto.getExternalUrl())
                 .setNotes(wishCreateDto.getNotes())
-                .setPurchased(false)
+                .setPurchased(wishCreateDto.isPurchased())
                 .setQtyRequested(wishCreateDto.getQtyRequested())
                 .build();
         wishRepo.save(wish);

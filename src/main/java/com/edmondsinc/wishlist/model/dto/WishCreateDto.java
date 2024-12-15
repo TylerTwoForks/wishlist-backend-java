@@ -1,22 +1,17 @@
 package com.edmondsinc.wishlist.model.dto;
 
-import io.leangen.graphql.annotations.GraphQLInputField;
-
-
 public class WishCreateDto {
-    Long wishBankId;
+    Long wishListId;
     String externalUrl;
     String notes;
     int qtyRequested;
-    @GraphQLInputField(defaultValue = "false")
     boolean purchased;
-    @GraphQLInputField(defaultValue = "true")
     boolean active;
 
     public WishCreateDto() {}
 
-    public WishCreateDto(Long wishBankId, String externalUrl, String notes, int qtyRequested, boolean purchased, boolean active) {
-        this.wishBankId = wishBankId;
+    public WishCreateDto(Long wishListId, String externalUrl, String notes, int qtyRequested, boolean purchased, boolean active) {
+        this.wishListId = wishListId;
         this.externalUrl = externalUrl;
         this.notes = notes;
         this.qtyRequested = qtyRequested;
@@ -25,11 +20,11 @@ public class WishCreateDto {
     }
 
     public Long getWishListId() {
-        return wishBankId;
+        return wishListId;
     }
 
-    public void setWishListId(Long wishBankId) {
-        this.wishBankId = wishBankId;
+    public void setWishListId(Long wishListId) {
+        this.wishListId = wishListId;
     }
 
     public String getExternalUrl() {

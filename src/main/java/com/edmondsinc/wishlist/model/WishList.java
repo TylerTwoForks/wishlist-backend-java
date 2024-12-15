@@ -5,39 +5,66 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
+
 @Entity
 public class WishList extends AbstractEntity {
-    //WishList is a collection of Wishes.  You can have multiple Banks to hold different types of wishes in order to categorize them.
+    //WishList is a collection of Wishes.  You can have multiple WishLists to hold different types of wishes in order to categorize them.
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn()
     User user;
-    String bankName;
 
-    public WishList(){}
+    String wishListName;
 
-    public WishList(User user, String bankName) {
-        this.user = user;
-        this.bankName = bankName;
+
+    public WishList() {
     }
 
-    public static class Builder{
+    public WishList(User user, String wishListName) {
+        this.user = user;
+        this.wishListName = wishListName;
+    }
+
+    public WishList(User user, String wishListName, List<Wish> wishes) {
+        this.user = user;
+        this.wishListName = wishListName;
+//        this.wishes = wishes;
+    }
+
+    public WishList(Long id, LocalDateTime createdAt, UUID guid, User user, String wishListName, List<Wish> wishes) {
+        super(id, createdAt, guid);
+        this.user = user;
+        this.wishListName = wishListName;
+//        this.wishes = wishes;
+    }
+
+    public static class Builder {
 
         private User user;
-        private String bankName;
+        private String wishListName;
+        private List<Wish> wishes;
 
         public Builder setUser(User user) {
             this.user = user;
             return this;
         }
 
-        public Builder setListName(String bankName) {
-            this.bankName = bankName;
+        public Builder setWishListName(String wishListName) {
+            this.wishListName = wishListName;
+            return this;
+        }
+
+        public Builder setWishes(List<Wish> wishes) {
+            this.wishes = wishes;
             return this;
         }
 
         public WishList build() {
-            return new WishList(user, bankName);
+            if (wishes != null) return new WishList(user, wishListName, wishes);
+            else return new WishList(user, wishListName);
         }
     }
 
@@ -49,13 +76,19 @@ public class WishList extends AbstractEntity {
         this.user = user;
     }
 
-    public String getBankName() {
-        return bankName;
+    public String getWishListName() {
+        return wishListName;
     }
 
-    public void setBankName(String bankName) {
-        this.bankName = bankName;
+    public void setWishListName(String wishListName) {
+        this.wishListName = wishListName;
     }
 
-
+//    public List<Wish> getWishes() {
+//        return wishes;
+//    }
+//
+//    public void setWishes(List<Wish> wishes) {
+//        this.wishes = wishes;
+//    }
 }
