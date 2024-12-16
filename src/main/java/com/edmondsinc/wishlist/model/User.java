@@ -49,7 +49,7 @@ public class User extends AbstractEntity {
         userDto.setActive(this.active);
         userDto.setUserName(this.userName);
         userDto.setLastLogin(this.getLastLogin());
-        userDto.setUserGuid(this.getGuid());
+        userDto.setUserGuid(this.getGuid().toString());
         return userDto;
     }
 

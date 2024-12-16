@@ -1,6 +1,7 @@
 package com.edmondsinc.wishlist.controller;
 
 import com.edmondsinc.wishlist.model.dto.CreateUserDto;
+import com.edmondsinc.wishlist.model.dto.UserDto;
 import com.edmondsinc.wishlist.model.dto.response.ResponseBaseDto;
 import com.edmondsinc.wishlist.model.dto.response.UserResponseDto;
 import com.edmondsinc.wishlist.service.UserService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -35,9 +37,14 @@ public class UserController {
     }
 
     @GetMapping(path="/all")
-    public ResponseBaseDto getAll()
+    public ResponseEntity<?> getAll()
     {
-        return userService.getAllUsers();
+        List<UserDto> userDtos = userService.getAllUsers();
+        if(userDtos.isEmpty()){
+            System.out.println("not found");
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(userDtos);
     }
 
     /**

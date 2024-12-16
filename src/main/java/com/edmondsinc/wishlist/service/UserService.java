@@ -34,13 +34,14 @@ public class UserService {
                 new ResponseBaseDto(204, HttpStatus.NO_CONTENT, "No user found for userGuid: [" + userGuid+"]");
     }
 
-    public ResponseBaseDto getAllUsers() {
+    public List<UserDto> getAllUsers() {
+        System.out.println("getting here");
         List<User> userList = userRepo.findAll();
         List<UserDto> userDtoList = new ArrayList<>();
         if (!userList.isEmpty()) {
             userList.forEach(u -> userDtoList.add(new UserDto(u)));
         }
-        return new UserResponseDto(userDtoList);
+        return userDtoList;
     }
 
 

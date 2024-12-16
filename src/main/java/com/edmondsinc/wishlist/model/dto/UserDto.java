@@ -12,7 +12,7 @@ public class UserDto {
     boolean active;
     String userName; //probably going to be email
     LocalDateTime lastLogin;
-    UUID userGuid;
+    String userGuid;
     Long id;
 
     public UserDto(User user){
@@ -21,7 +21,7 @@ public class UserDto {
         this.active = user.isActive();
         this.userName = user.getUserName();
         this.lastLogin = user.getLastLogin();
-        this.userGuid = user.getGuid();
+        this.userGuid = user.getGuid().toString();
         this.id = user.getId();
     }
 
@@ -67,11 +67,11 @@ public class UserDto {
         this.lastLogin = lastLogin;
     }
 
-    public UUID getUserGuid() {
+    public String getUserGuid() {
         return userGuid;
     }
 
-    public void setUserGuid(UUID userGuid) {
+    public void setUserGuid(String userGuid) {
         this.userGuid = userGuid;
     }
 
