@@ -82,4 +82,17 @@ public class UserDto {
     public void setId(Long id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", active=" + active +
+                ", userName='" + userName + '\'' +
+                ", lastLogin=" + lastLogin +
+                ", userGuid='" + userGuid + '\'' +
+                ", id=" + id +
+                '}';
+    }
 }

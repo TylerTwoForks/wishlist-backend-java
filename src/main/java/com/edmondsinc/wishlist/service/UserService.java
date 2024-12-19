@@ -41,6 +41,9 @@ public class UserService {
         if (!userList.isEmpty()) {
             userList.forEach(u -> userDtoList.add(new UserDto(u)));
         }
+        for(UserDto userDto : userDtoList){
+            System.out.println(userDto.toString());
+        }
         return userDtoList;
     }
 
