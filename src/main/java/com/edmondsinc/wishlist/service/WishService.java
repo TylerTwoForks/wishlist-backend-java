@@ -51,10 +51,17 @@ public class WishService {
     }
 
     public List<WishResponseDto> getWishesByWishList(WishList wl){
+        List<WishResponseDto> res = WishResponseDto.wishListToResponseList(wishRepo.findAllByWishList(wl));
+        for(WishResponseDto dto : res){
+            System.out.println("dto:: "+dto.toString());
+        }
         return WishResponseDto.wishListToResponseList(wishRepo.findAllByWishList(wl));
     }
 
     public WishResponseDto addWish(WishCreateDto wishCreateDto){
+        //todo - in here, we need to build the URL for the Amazon Affiliate links
+        // Info on this here: https://affiliate-program.amazon.com/help/node/topic/GP38PJ6EUR6PFBEC
+        // Means we need to expand the Wish model with an affiliate URL as well.
         Wish wish = new Wish.Builder()
                 .setWishList(wishListRepo.findById(wishCreateDto.getWishListId()).orElse(null))
                 .setActive(wishCreateDto.isActive())

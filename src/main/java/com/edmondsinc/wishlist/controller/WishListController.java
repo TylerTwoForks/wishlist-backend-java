@@ -41,6 +41,7 @@ public class WishListController {
     public ResponseEntity<?>  getWishListsForUser(@PathVariable Long userId){
         try{
             List<WishListResponseDto> wlRes = wls.getWishListsForUser(userId);
+            System.out.println("wlRes:: "+wlRes.toString());
             return buildResponse(wlRes);
         }catch (Exception e){
             return serverErrorResponse(e);

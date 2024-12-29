@@ -1,12 +1,19 @@
 package com.edmondsinc.wishlist.model.dto.response;
 
 import com.edmondsinc.wishlist.model.Wish;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class WishResponseDto {
+    @JsonIgnore //hard coded base Affiliate link for All Things Possible.
+    private static final String BASE_URL = "https://www.amazon.com/dp/%s/ref=nosim?tag=%s";
+    @JsonIgnore
+    private static final String ASSOCIATE_ID = "allthingspo0c-20";
+
     Long wishId;
     Long wishListId;
     String externalUrl;
@@ -18,17 +25,30 @@ public class WishResponseDto {
     public WishResponseDto(Wish wish){
         this.wishId = wish.getId();
         this.wishListId = wish.getWishList().getId();
-        this.externalUrl = wish.getExternalUrl();
+        this.externalUrl = buildAmazonAffiliateLink(wish.getExternalUrl());
         this.notes = wish.getNotes();
         this.qtyRequested = wish.getQtyRequested();
         this.purchased = wish.isPurchased();
         this.active = wish.isActive();
     }
 
-    public static List<WishResponseDto> wishListToResponseList(List<Wish> wishList){
+    private String buildAmazonAffiliateLink(String url){
+        if(url.contains("dp/")){
+            //for Amazon "full" urls, the string between the "db/" and the next "/" is the ASIN.
+            //TODO - will probably need to find a way to get the ASIN of a product from a shortened URL as well.
+            // Probably from the PAAPI that Amazon provides.
+            String asin = StringUtils.substringBetween(url,"dp/", "/");
+            return String.format(BASE_URL, asin, ASSOCIATE_ID);
+        }
+
+        return url;
+    }
+
+    public static List<WishResponseDto> wishListToResponseList(List<Wish> wishes){
         List<WishResponseDto> response = new ArrayList<>();
-        wishList.forEach(w -> {
-            response.add(new WishResponseDto(w));
+        wishes.forEach(w -> {
+            WishResponseDto dto = new WishResponseDto(w);
+            response.add(dto);
         });
         return response;
     }

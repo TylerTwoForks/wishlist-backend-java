@@ -35,14 +35,10 @@ public class UserService {
     }
 
     public List<UserDto> getAllUsers() {
-        System.out.println("getting here");
         List<User> userList = userRepo.findAll();
         List<UserDto> userDtoList = new ArrayList<>();
         if (!userList.isEmpty()) {
             userList.forEach(u -> userDtoList.add(new UserDto(u)));
-        }
-        for(UserDto userDto : userDtoList){
-            System.out.println(userDto.toString());
         }
         return userDtoList;
     }
