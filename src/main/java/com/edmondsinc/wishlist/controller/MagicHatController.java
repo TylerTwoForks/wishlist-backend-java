@@ -42,9 +42,7 @@ public class MagicHatController {
         if(magicHat.size() < 4){
             return new ResponseBaseDto(411, HttpStatus.LENGTH_REQUIRED, "MagicHat must contain at least 4 entries to sort");
         }else{
-            ResponseBaseDto rbDto = mhs.pullNames(magicHat, giftingTo);
-            System.out.println("serviceRes:: "+rbDto);
-            return rbDto;
+            return mhs.pullNames(magicHat, giftingTo);
         }
     }
 }

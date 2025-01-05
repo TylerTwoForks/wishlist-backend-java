@@ -17,8 +17,6 @@ public class MagicHatService {
     public MagicHatService() {}
 
     public ResponseBaseDto pullNames(List<PersonDto> magicHat, int giftingTo){
-        System.out.println("magicHat::" + magicHat);
-
         HashMap<PersonDto, List<PersonDto>> matchedUp = matchUp(magicHat, giftingTo);
 
         if(!matchedUp.isEmpty()){
@@ -27,10 +25,6 @@ public class MagicHatService {
             matchedUp.forEach((pdto, lpdto) -> {
                 response.add(new MagicHatDto(pdto, lpdto));
             });
-
-            for(MagicHatDto mhdto : response){
-                System.out.println("res:: "+mhdto.toString());
-            }
             return new MagicHatResponseDto(response).ok();
         }else{
             return new ResponseBaseDto(204, HttpStatus.NO_CONTENT, "Magic hat go boom!");

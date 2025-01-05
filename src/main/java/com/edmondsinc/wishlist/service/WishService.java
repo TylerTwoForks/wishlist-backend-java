@@ -53,9 +53,6 @@ public class WishService {
 
     public List<WishResponseDto> getWishesByWishlist(Wishlist wl){
         List<WishResponseDto> res = WishResponseDto.wishListToResponseList(wishRepo.findAllByWishList(wl));
-        for(WishResponseDto dto : res){
-            System.out.println("dto:: "+dto.toString());
-        }
         return WishResponseDto.wishListToResponseList(wishRepo.findAllByWishList(wl));
     }
 

@@ -41,7 +41,6 @@ public class UserController {
     {
         List<UserDto> userDtos = userService.getAllUsers();
         if(userDtos.isEmpty()){
-            System.out.println("not found");
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(userDtos);

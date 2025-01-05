@@ -23,7 +23,8 @@ public class WishCreateDto {
         return wishListId;
     }
 
-    public void setWishlistId(Long wishListId) {
+    //this setter needs to be lowercase `wish` for some reason. All the other setters work fine.
+    public void setwishListId(Long wishListId) {
         this.wishListId = wishListId;
     }
 
@@ -65,6 +66,18 @@ public class WishCreateDto {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    @Override
+    public String toString() {
+        return "WishCreateDto{" +
+                "wishListId=" + wishListId +
+                ", externalUrl='" + externalUrl + '\'' +
+                ", notes='" + notes + '\'' +
+                ", qtyRequested=" + qtyRequested +
+                ", purchased=" + purchased +
+                ", active=" + active +
+                '}';
     }
 }
 
