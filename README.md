@@ -1,4 +1,4 @@
-# WishList
+# Wishlist
 
 This project was born out of discussions with our large family. <br> 
 Having 20ish people in our immediately family, purchasing Christmas gifts for everyone quickly become <br>
@@ -15,7 +15,7 @@ What if we wanted the "draw 2 names out of a hat" implemented in the same platfo
 
 We can't do all of that on Amazon.  
 
-Enter **WishList**
+Enter **Wishlist**
 
 You will be able to:
 1. add custom wishlist items in plain text

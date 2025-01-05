@@ -12,7 +12,7 @@
 	<artifactId>wishlist</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>wishlist</name>
-	<description>WishList Backend Project</description>
+	<description>Wishlist Backend Project</description>
 	<properties>
 		<java.version>21</java.version>
 	</properties>

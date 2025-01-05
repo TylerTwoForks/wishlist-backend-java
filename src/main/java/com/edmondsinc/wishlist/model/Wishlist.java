@@ -4,14 +4,16 @@ import com.edmondsinc.wishlist.config.AbstractEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-@Entity
-public class WishList extends AbstractEntity {
-    //WishList is a collection of Wishes.  You can have multiple WishLists to hold different types of wishes in order to categorize them.
+@Entity()
+@Table(name = "wish_list")
+public class Wishlist extends AbstractEntity {
+    //Wishlist is a collection of Wishes.  You can have multiple Wishlists to hold different types of wishes in order to categorize them.
 
     @ManyToOne(optional = false)
     @JoinColumn()
@@ -20,21 +22,21 @@ public class WishList extends AbstractEntity {
     String wishListName;
 
 
-    public WishList() {
+    public Wishlist() {
     }
 
-    public WishList(User user, String wishListName) {
+    public Wishlist(User user, String wishListName) {
         this.user = user;
         this.wishListName = wishListName;
     }
 
-    public WishList(User user, String wishListName, List<Wish> wishes) {
+    public Wishlist(User user, String wishListName, List<Wish> wishes) {
         this.user = user;
         this.wishListName = wishListName;
 //        this.wishes = wishes;
     }
 
-    public WishList(Long id, LocalDateTime createdAt, UUID guid, User user, String wishListName, List<Wish> wishes) {
+    public Wishlist(Long id, LocalDateTime createdAt, UUID guid, User user, String wishListName, List<Wish> wishes) {
         super(id, createdAt, guid);
         this.user = user;
         this.wishListName = wishListName;
@@ -52,7 +54,7 @@ public class WishList extends AbstractEntity {
             return this;
         }
 
-        public Builder setWishListName(String wishListName) {
+        public Builder setWishlistName(String wishListName) {
             this.wishListName = wishListName;
             return this;
         }
@@ -62,9 +64,9 @@ public class WishList extends AbstractEntity {
             return this;
         }
 
-        public WishList build() {
-            if (wishes != null) return new WishList(user, wishListName, wishes);
-            else return new WishList(user, wishListName);
+        public Wishlist build() {
+            if (wishes != null) return new Wishlist(user, wishListName, wishes);
+            else return new Wishlist(user, wishListName);
         }
     }
 
@@ -76,11 +78,11 @@ public class WishList extends AbstractEntity {
         this.user = user;
     }
 
-    public String getWishListName() {
+    public String getWishlistName() {
         return wishListName;
     }
 
-    public void setWishListName(String wishListName) {
+    public void setWishlistName(String wishListName) {
         this.wishListName = wishListName;
     }
 

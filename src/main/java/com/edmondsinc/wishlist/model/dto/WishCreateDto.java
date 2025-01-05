@@ -19,11 +19,11 @@ public class WishCreateDto {
         this.active = active;
     }
 
-    public Long getWishListId() {
+    public Long getWishlistId() {
         return wishListId;
     }
 
-    public void setWishListId(Long wishListId) {
+    public void setWishlistId(Long wishListId) {
         this.wishListId = wishListId;
     }
 

@@ -1,18 +1,16 @@
 package com.edmondsinc.wishlist.model.dto;
 
-import com.edmondsinc.wishlist.model.Wish;
-
 import java.util.List;
 
-public class WishListCreateDto {
+public class WishlistCreateDto {
     String name;
     Long userId;
     List<Long> wishIds;
 
-    public WishListCreateDto() {
+    public WishlistCreateDto() {
     }
 
-    public WishListCreateDto(String name, Long userId, List<Long> wishIds) {
+    public WishlistCreateDto(String name, Long userId, List<Long> wishIds) {
         this.name = name;
         this.userId = userId;
         this.wishIds = wishIds;

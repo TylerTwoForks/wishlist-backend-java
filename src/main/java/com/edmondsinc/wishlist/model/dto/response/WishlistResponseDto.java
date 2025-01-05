@@ -1,20 +1,20 @@
 package com.edmondsinc.wishlist.model.dto.response;
 
-import com.edmondsinc.wishlist.model.WishList;
+import com.edmondsinc.wishlist.model.Wishlist;
 
 import java.util.List;
 
 
-public class WishListResponseDto {
+public class WishlistResponseDto {
 
     Long id;
     String name;
     Long userId;
     List<WishResponseDto> wishResDtoList;
 
-    public WishListResponseDto(WishList wl){
+    public WishlistResponseDto(Wishlist wl){
         this.id = wl.getId();
-        this.name = wl.getWishListName();
+        this.name = wl.getWishlistName();
         this.userId = wl.getUser().getId();
     }
 
@@ -52,7 +52,7 @@ public class WishListResponseDto {
 
     @Override
     public String toString() {
-        return "WishListResponseDto{" +
+        return "WishlistResponseDto{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", userId=" + userId +

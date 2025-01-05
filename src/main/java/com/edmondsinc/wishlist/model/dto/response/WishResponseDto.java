@@ -24,7 +24,7 @@ public class WishResponseDto {
 
     public WishResponseDto(Wish wish){
         this.wishId = wish.getId();
-        this.wishListId = wish.getWishList().getId();
+        this.wishListId = wish.getWishlist().getId();
         this.externalUrl = buildAmazonAffiliateLink(wish.getExternalUrl());
         this.notes = wish.getNotes();
         this.qtyRequested = wish.getQtyRequested();
@@ -61,11 +61,11 @@ public class WishResponseDto {
         this.wishId = wishId;
     }
 
-    public Long getWishListId() {
+    public Long getWishlistId() {
         return wishListId;
     }
 
-    public void setWishListId(Long wishListId) {
+    public void setWishlistId(Long wishListId) {
         this.wishListId = wishListId;
     }
 

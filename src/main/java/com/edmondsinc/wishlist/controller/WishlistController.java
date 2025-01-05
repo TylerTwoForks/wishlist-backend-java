@@ -1,8 +1,8 @@
 package com.edmondsinc.wishlist.controller;
 
-import com.edmondsinc.wishlist.model.dto.WishListCreateDto;
-import com.edmondsinc.wishlist.model.dto.response.WishListResponseDto;
-import com.edmondsinc.wishlist.service.WishListService;
+import com.edmondsinc.wishlist.model.dto.WishlistCreateDto;
+import com.edmondsinc.wishlist.model.dto.response.WishlistResponseDto;
+import com.edmondsinc.wishlist.service.WishlistService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,19 +18,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/wish-list")
-public class WishListController {
+public class WishlistController {
 
-    private final WishListService wls;
+    private final WishlistService wls;
 
-    public WishListController(WishListService wls) {
+    public WishlistController(WishlistService wls) {
         this.wls = wls;
     }
 
 
     @GetMapping("/all")
-    public ResponseEntity<?> getAllWishLists(){
+    public ResponseEntity<?> getAllWishlists(){
         try{
-            List<WishListResponseDto> wlRes = wls.getAllWishLists();
+            List<WishlistResponseDto> wlRes = wls.getAllWishlists();
             return buildResponse(wlRes);
         }catch (Exception e){
             return serverErrorResponse(e);
@@ -38,9 +38,9 @@ public class WishListController {
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<?>  getWishListsForUser(@PathVariable Long userId){
+    public ResponseEntity<?>  getWishlistsForUser(@PathVariable Long userId){
         try{
-            List<WishListResponseDto> wlRes = wls.getWishListsForUser(userId);
+            List<WishlistResponseDto> wlRes = wls.getWishlistsForUser(userId);
             System.out.println("wlRes:: "+wlRes.toString());
             return buildResponse(wlRes);
         }catch (Exception e){
@@ -49,9 +49,9 @@ public class WishListController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createWishList(@RequestBody WishListCreateDto createWishList) {
+    public ResponseEntity<?> createWishlist(@RequestBody WishlistCreateDto createWishlist) {
         try{
-            wls.createWishList(createWishList);
+            wls.createWishlist(createWishlist);
             return ResponseEntity.ok(HttpEntity.EMPTY);
         }catch (Exception e){
             return serverErrorResponse(e);
@@ -59,9 +59,9 @@ public class WishListController {
     }
 
     @DeleteMapping("/{wishListId}")
-    public ResponseEntity<?> deleteWishListById(@PathVariable Long wishListId){
+    public ResponseEntity<?> deleteWishlistById(@PathVariable Long wishListId){
         try{
-            wls.deleteWishList(wishListId);
+            wls.deleteWishlist(wishListId);
             return ResponseEntity.ok(HttpEntity.EMPTY);
 
         }catch (Exception e){
@@ -75,7 +75,7 @@ public class WishListController {
     /*****************************************************
      * Private Methods
      *****************************************************/
-    private ResponseEntity<?> buildResponse(List<WishListResponseDto> dtoResponse){
+    private ResponseEntity<?> buildResponse(List<WishlistResponseDto> dtoResponse){
         if(dtoResponse != null && !dtoResponse.isEmpty()){
             return ResponseEntity.ok(dtoResponse);
         }else{

@@ -13,7 +13,7 @@ public class Wish extends AbstractEntity {
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "wishlist_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    WishList wishList;
+    Wishlist wishList;
 
     String externalUrl;
     String notes;
@@ -24,7 +24,7 @@ public class Wish extends AbstractEntity {
     public Wish() {
     }
 
-    public Wish(WishList wishList, String externalUrl, String notes, int qtyRequested, boolean purchased, boolean active) {
+    public Wish(Wishlist wishList, String externalUrl, String notes, int qtyRequested, boolean purchased, boolean active) {
         this.wishList = wishList;
         this.externalUrl = externalUrl;
         this.notes = notes;
@@ -33,11 +33,11 @@ public class Wish extends AbstractEntity {
         this.active = active;
     }
 
-    public WishList getWishList() {
+    public Wishlist getWishlist() {
         return wishList;
     }
 
-    public void setWishList(WishList wishList) {
+    public void setWishlist(Wishlist wishList) {
         this.wishList = wishList;
     }
 
@@ -83,14 +83,14 @@ public class Wish extends AbstractEntity {
 
     public static class Builder {
 
-        private WishList wishList;
+        private Wishlist wishList;
         private String externalUrl;
         private String notes;
         private int qtyRequested;
         private boolean purchased;
         private boolean active;
 
-        public Builder setWishList(WishList wishList) {
+        public Builder setWishlist(Wishlist wishList) {
             this.wishList = wishList;
             return this;
         }
