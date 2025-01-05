@@ -14,7 +14,7 @@ public class WishResponseDto {
     @JsonIgnore
     private static final String ASSOCIATE_ID = "allthingspo0c-20";
 
-    Long wishId;
+    Long id;
     Long wishListId;
     String externalUrl;
     String notes;
@@ -23,7 +23,7 @@ public class WishResponseDto {
     boolean active;
 
     public WishResponseDto(Wish wish){
-        this.wishId = wish.getId();
+        this.id = wish.getId();
         this.wishListId = wish.getWishlist().getId();
         this.externalUrl = buildAmazonAffiliateLink(wish.getExternalUrl());
         this.notes = wish.getNotes();
@@ -53,12 +53,12 @@ public class WishResponseDto {
         return response;
     }
 
-    public Long getWishId() {
-        return wishId;
+    public Long getId() {
+        return id;
     }
 
-    public void setWishId(Long wishId) {
-        this.wishId = wishId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getWishlistId() {
@@ -112,7 +112,7 @@ public class WishResponseDto {
     @Override
     public String toString() {
         return "WishResponseDto{" +
-                "wishId=" + wishId +
+                "wishId=" + id +
                 ", wishListId=" + wishListId +
                 ", externalUrl='" + externalUrl + '\'' +
                 ", notes='" + notes + '\'' +
