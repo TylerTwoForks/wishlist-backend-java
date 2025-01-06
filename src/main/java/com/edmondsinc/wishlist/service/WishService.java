@@ -71,4 +71,13 @@ public class WishService {
         wishRepo.save(wish);
         return new WishResponseDto(wish);
     }
+
+    public Boolean deleteWish(Long wishId){
+        try{
+            wishRepo.deleteById(wishId);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
 }
