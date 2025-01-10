@@ -58,7 +58,9 @@ public class WishlistController {
     }
 
     @DeleteMapping("/{wishListId}")
-    public ResponseEntity<?> deleteWishlistById(@PathVariable Long wishListId){
+    public ResponseEntity<?> deleteWishlistById(
+            @PathVariable Long wishListId
+    ){
         try{
             wls.deleteWishlist(wishListId);
             return ResponseEntity.ok(HttpEntity.EMPTY);
