@@ -1,44 +1,43 @@
 package com.edmondsinc.wishlist.model;
 
 import com.edmondsinc.wishlist.config.AbstractEntity;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class Wish extends AbstractEntity {
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "wishlist_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    Wishlist wishList;
+    Wishlist wishlist;
 
     String externalUrl;
     String notes;
     int qtyRequested;
     boolean purchased;
     boolean active;
+    int sortOrder;
+
 
     public Wish() {
     }
 
-    public Wish(Wishlist wishList, String externalUrl, String notes, int qtyRequested, boolean purchased, boolean active) {
-        this.wishList = wishList;
+    public Wish(Wishlist wishlist, String externalUrl, String notes, int qtyRequested, boolean purchased, boolean active, int sortOrder) {
+        this.wishlist = wishlist;
         this.externalUrl = externalUrl;
         this.notes = notes;
         this.qtyRequested = qtyRequested;
         this.purchased = purchased;
         this.active = active;
+        this.sortOrder = sortOrder;
     }
 
     public Wishlist getWishlist() {
-        return wishList;
+        return wishlist;
     }
 
     public void setWishlist(Wishlist wishList) {
-        this.wishList = wishList;
+        this.wishlist = wishList;
     }
 
     public String getExternalUrl() {
@@ -81,6 +80,14 @@ public class Wish extends AbstractEntity {
         this.active = active;
     }
 
+    public int getSortOrder() {
+        return sortOrder;
+    }
+
+    public void setSortOrder(int sortOrder) {
+        this.sortOrder = sortOrder;
+    }
+
     public static class Builder {
 
         private Wishlist wishList;
@@ -89,6 +96,7 @@ public class Wish extends AbstractEntity {
         private int qtyRequested;
         private boolean purchased;
         private boolean active;
+        private int sortOrder;
 
         public Builder setWishlist(Wishlist wishList) {
             this.wishList = wishList;
@@ -120,8 +128,13 @@ public class Wish extends AbstractEntity {
             return this;
         }
 
+        public Builder setSortOrder(int sortOrder){
+            this.sortOrder = sortOrder;
+            return this;
+        }
+
         public Wish build() {
-            return new Wish(wishList, externalUrl, notes, qtyRequested, purchased, active);
+            return new Wish(wishList, externalUrl, notes, qtyRequested, purchased, active, sortOrder);
         }
     }
 }

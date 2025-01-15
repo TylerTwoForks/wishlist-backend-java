@@ -27,13 +27,16 @@ public class WishController {
 
     @PostMapping
     public ResponseEntity<?> createWishItem(@RequestBody WishCreateDto wishCreateDto){
-        logger.error("createWish:: {}", wishCreateDto.toString());
+        //TODO - working on insert wishes in specific sort order. How to handle inserting if no sort order provided?
+        logger.info("createWish:: {}", wishCreateDto.toString());
 
         return ResponseEntity.ok(ws.addWish(wishCreateDto));
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteWish(@PathVariable Long id) {
+        logger.info("delete wish hit for Id: "+id);
+
         if(ws.deleteWish(id)) return ResponseEntity.ok("success");
         else return ResponseEntity.internalServerError().body("failed to delete");
     }

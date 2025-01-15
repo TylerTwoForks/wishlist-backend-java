@@ -11,7 +11,6 @@ import jakarta.persistence.NoResultException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,8 +51,8 @@ public class WishService {
     }
 
     public List<WishResponseDto> getWishesByWishlist(Wishlist wl){
-        List<WishResponseDto> res = WishResponseDto.wishListToResponseList(wishRepo.findAllByWishList(wl));
-        return WishResponseDto.wishListToResponseList(wishRepo.findAllByWishList(wl));
+        List<WishResponseDto> res = WishResponseDto.wishListToResponseList(wishRepo.findAllByWishlistOrderBySortOrderAsc(wl));
+        return WishResponseDto.wishListToResponseList(wishRepo.findAllByWishlistOrderBySortOrderAsc(wl));
     }
 
     public WishResponseDto addWish(WishCreateDto wishCreateDto){
