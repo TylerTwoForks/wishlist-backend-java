@@ -21,6 +21,7 @@ public class WishResponseDto {
     int qtyRequested;
     boolean purchased;
     boolean active;
+    int sortOrder;
 
     public WishResponseDto(Wish wish){
         this.id = wish.getId();
@@ -30,6 +31,7 @@ public class WishResponseDto {
         this.qtyRequested = wish.getQtyRequested();
         this.purchased = wish.isPurchased();
         this.active = wish.isActive();
+        this.sortOrder = wish.getSortOrder();
     }
 
     private String buildAmazonAffiliateLink(String url){
@@ -109,6 +111,22 @@ public class WishResponseDto {
         this.active = active;
     }
 
+    public Long getWishListId() {
+        return wishListId;
+    }
+
+    public void setWishListId(Long wishListId) {
+        this.wishListId = wishListId;
+    }
+
+    public int getSortOrder() {
+        return sortOrder;
+    }
+
+    public void setSortOrder(int sortOrder) {
+        this.sortOrder = sortOrder;
+    }
+
     @Override
     public String toString() {
         return "WishResponseDto{" +
@@ -119,6 +137,7 @@ public class WishResponseDto {
                 ", qtyRequested=" + qtyRequested +
                 ", purchased=" + purchased +
                 ", active=" + active +
+                ", sortOrder=" + sortOrder +
                 '}';
     }
 }

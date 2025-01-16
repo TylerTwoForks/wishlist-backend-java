@@ -2,16 +2,19 @@ package com.edmondsinc.wishlist.config;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public abstract class AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +22,9 @@ public abstract class AbstractEntity {
     @Column(nullable = false, unique = true)
     private Long id;
 
+    @Column(name = "created_at", updatable = false)
     @CreatedDate
-    private LocalDateTime createdAt;
+    private Instant createdAt;
 
     @Column(nullable = false, unique = true, updatable = false)
     private UUID guid;
@@ -29,7 +33,7 @@ public abstract class AbstractEntity {
         this.guid = UUID.randomUUID();
     }
 
-    public AbstractEntity(Long id, LocalDateTime createdAt, UUID guid) {
+    public AbstractEntity(Long id, Instant createdAt, UUID guid) {
         this.id = id;
         this.createdAt = createdAt;
         this.guid = guid;
@@ -43,11 +47,11 @@ public abstract class AbstractEntity {
         this.id = id;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public Instant getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
     }
 
