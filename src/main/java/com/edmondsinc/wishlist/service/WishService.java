@@ -1,6 +1,5 @@
 package com.edmondsinc.wishlist.service;
 
-import com.edmondsinc.wishlist.controller.WishController;
 import com.edmondsinc.wishlist.model.Wish;
 import com.edmondsinc.wishlist.model.Wishlist;
 import com.edmondsinc.wishlist.model.dto.WishCreateDto;
@@ -16,7 +15,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @GraphQLApi
@@ -64,7 +66,6 @@ public class WishService {
         // Info on this here: https://affiliate-program.amazon.com/help/node/topic/GP38PJ6EUR6PFBEC
         // Means we need to expand the Wish model with an affiliate URL as well.
 
-        List<Wish> wishesToUpsert = new ArrayList<>();
 
         Wishlist wl = wishlistRepo.findById(wishCreateDto.getWishlistId()).orElse(null);
         if(wl != null) logger.warn(wl.toString());
@@ -79,7 +80,8 @@ public class WishService {
                 .setQtyRequested(wishCreateDto.getQtyRequested())
                 .build();
 
-        placeWishInProperSortOrder(wish, wishCreateDto, wishesToUpsert);
+        Integer newSortPosition = wishCreateDto.getSortOrder() != null ? wishCreateDto.getSortOrder() : 0;
+        List<Wish> wishesToUpsert = updateSortOrder(wish, newSortPosition, false);
 
         wishRepo.saveAll(wishesToUpsert);
         return new WishResponseDto(wish);
@@ -87,28 +89,39 @@ public class WishService {
 
     /**
      * @param wish - base wish we've already built.
-     * @param wishCreateDto - the dto being used to create
-     * @param wishesToUpsert - list we're updating with the wish placed in the proper sort order.
+     * @param newSortOrder - the dto being used to create
      */
-    private void placeWishInProperSortOrder(Wish wish, WishCreateDto wishCreateDto, List<Wish> wishesToUpsert){
-        Wish lastWish = wishRepo.findFirstByWishlistIdOrderBySortOrderDesc(wishCreateDto.getWishlistId());
-        if (wishCreateDto.getSortOrder() == null || (lastWish != null && wishCreateDto.getSortOrder() > lastWish.getSortOrder())) {
-            wish.setSortOrder(lastWish.getSortOrder() + 1);
+    private List<Wish> updateSortOrder(Wish wish, Integer newSortOrder, Boolean delete){
+        List<Wish> wishesToUpsert = new ArrayList<>();
+
+        List<Wish> wishes = wishRepo.findAllByWishlistIdOrderBySortOrderAsc(wish.getWishlist().getId());
+        if(wishes == null || wishes.isEmpty()) {
+            wishesToUpsert.add(wish);
+            return wishesToUpsert;
+        }
+
+        if(newSortOrder >= wishes.size() || newSortOrder == 0){
+            wish.setSortOrder(wishes.getLast().getSortOrder()+1);
         } else {
-            List<Wish> wishes = wishRepo.findAllByWishlistIdOrderBySortOrderAsc(wishCreateDto.getWishlistId());
             wishesToUpsert.addAll(
-                    wishes.stream()
-                            .filter(w -> w.getSortOrder() >= wishCreateDto.getSortOrder())
-                            .peek(w -> w.setSortOrder(w.getSortOrder() + 1)) //intermediate opp. this operates on each item as it's being consumed.
-                            .toList() //this is terminal so it ends our stream here.
+                    wishes.stream().filter(w -> w.getSortOrder() >= newSortOrder && !Objects.equals(w.getId(), wish.getId()))
+                            .peek(w -> {
+                                if(delete) w.setSortOrder(w.getSortOrder() - 1);
+                                else w.setSortOrder(w.getSortOrder() + 1);
+                            }).toList()
             );
         }
-        wishesToUpsert.add(wish);
+        if(!delete) wishesToUpsert.add(wish);
+        return wishesToUpsert;
     }
 
     public Boolean deleteWish(Long wishId) {
+        Wish wish = wishRepo.getWishById(wishId);
+        List<Wish> wishesToUpdate = updateSortOrder(wish, wish.getSortOrder(), true);
+
         try {
-            wishRepo.deleteById(wishId);
+            wishRepo.delete(wish);
+            wishRepo.saveAll(wishesToUpdate);
             return true;
         } catch (Exception e) {
             return false;

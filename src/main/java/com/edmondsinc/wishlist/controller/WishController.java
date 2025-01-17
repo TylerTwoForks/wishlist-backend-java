@@ -27,7 +27,6 @@ public class WishController {
 
     @PostMapping
     public ResponseEntity<?> createWishItem(@RequestBody WishCreateDto wishCreateDto){
-        //TODO - working on insert wishes in specific sort order. How to handle inserting if no sort order provided?
         logger.info("createWish:: {}", wishCreateDto.toString());
 
         return ResponseEntity.ok(ws.addWish(wishCreateDto));
